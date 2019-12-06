@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Quiz code start-->
+    <script>
+        var q = ["<h1>1.&nbsp;Expressing continuously varying values.</h1><br/><br/>",
+            "<h1>2.&nbsp;Break analog at regular intervals to represent discrete values.</h1><br/><br/>"
+        ];
+
+        var a1 = ["<button class=buttons002 onclick=q1c()>analog</button>",
+            "<button class=buttons002 onclick=q2c()>analog</button>"
+        ];
+
+        var a2 = ["<button class=buttons002 onclick=q1i()>digital</button>",
+            "<button class=buttons002 onclick=q2i()>digital</button>"
+        ];
+
+        var n = 0;
+        n++;
+        var s = 0;
+        s++;
+
+        function begin001() {
+            disappear001.innerHTML = "";
+            message001.innerHTML = "";
+            question001.innerHTML = q[0];
+            option001.innerHTML = a1[0];
+            option002.innerHTML = a2[0];
+            number001.innerHTML = n++;
+        }
+
+        function q1c() {
+            answer001.innerHTML="<div id=red001>"+"Correct"+"</div>";
+            option001.innerHTML = "";
+            option002.innerHTML = "";
+            next001.innerHTML = "<button class=buttons001 onclick=new002()>Next</button>";
+            score001.innerHTML = s++;
+        }
+
+        function q1i() {
+            answer001.innerHTML="<div id=red001>"+"Incorrect"+"</div>";
+            option001.innerHTML = "";
+            option002.innerHTML = "";
+            next001.innerHTML = "<button class=buttons001 onclick=new002()>Next</button>";
+        }
+
+        function new002() {
+            question001.innerHTML = q[1];
+            option001.innerHTML = a1[1];
+            option002.innerHTML = a2[1];
+            next001.innerHTML = "";
+            answer001.innerHTML = "";
+            number001.innerHTML = n++;
+        }
+
+        function q2c() {
+            answer001.innerHTML = "<div id=red001>" + "Incorrect" + "</div>";
+            option001.innerHTML = "";
+            option002.innerHTML = "";
+            next001.innerHTML = "<button class=buttons001 onclick=end001()>Next</button>";
+        }
+
+        function q2i() {
+            answer001.innerHTML = "<div id=red001>" + "Correct" + "</div>";
+            option001.innerHTML = "";
+            option002.innerHTML = "";
+            next001.innerHTML = "<button class=buttons001 onclick=end001()>Next</button>";
+            score001.innerHTML = s++;
+        }
+
+        function end001() {
+            message001.innerHTML = "End of Quiz.";
+            question001.innerHTML = "";
+            option001.innerHTML = "";
+            option002.innerHTML = "";
+            next001.innerHTML = "<div id=text001>" + "<button class=buttons001 onclick=repeat001()>Repeat</button>" + "</div>";
+            answer001.innerHTML = "";
+        }
+
+        function repeat001() {
+            location.reload();
+        }
+    </script>
+    <!-- Quiz code end!!!-->
+
+    <!-- clock code start!! -->
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script src="clock2.js"></script>
+    <script>
+        var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+        function init() {
+            canvas = document.getElementById("canvas");
+            anim_container = document.getElementById("animation_container");
+            dom_overlay_container = document.getElementById("dom_overlay_container");
+            var comp = AdobeAn.getComposition("B5AEEBD4485B1B46B92807A24B71AFCE");
+            var lib = comp.getLibrary();
+            var loader = new createjs.LoadQueue(false);
+            loader.addEventListener("fileload", function(evt) {
+                handleFileLoad(evt, comp)
+            });
+            loader.addEventListener("complete", function(evt) {
+                handleComplete(evt, comp)
+            });
+            var lib = comp.getLibrary();
+            loader.loadManifest(lib.properties.manifest);
+        }
+
+        function handleFileLoad(evt, comp) {
+            var images = comp.getImages();
+            if (evt && (evt.item.type == "image")) {
+                images[evt.item.id] = evt.result;
+            }
+        }
+
+        function handleComplete(evt, comp) {
+            //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+            var lib = comp.getLibrary();
+            var ss = comp.getSpriteSheet();
+            var queue = evt.target;
+            var ssMetadata = lib.ssMetadata;
+            for (i = 0; i < ssMetadata.length; i++) {
+                ss[ssMetadata[i].name] = new createjs.SpriteSheet({
+                    "images": [queue.getResult(ssMetadata[i].name)],
+                    "frames": ssMetadata[i].frames
+                })
+            }
+            exportRoot = new lib.clock2();
+            stage = new lib.Stage(canvas);
+            //Registers the "tick" event listener.
+            fnStartAnimation = function() {
+                stage.addChild(exportRoot);
+                createjs.Ticker.framerate = lib.properties.fps;
+                createjs.Ticker.addEventListener("tick", stage);
+            }
+            //Code to support hidpi screens and responsive scaling.
+            AdobeAn.makeResponsive(false, 'both', false, 1, [canvas, anim_container, dom_overlay_container]);
+            AdobeAn.compositionLoaded(lib.properties.id);
+            fnStartAnimation();
+        }
+    </script>
+    <!-- clock code end!! -->
+
+</head>
+
+<body onload="init();" style="margin:0px;">
+    <div class="gtco-loader"></div>
+    <div id="page">
+        <nav class="gtco-nav" role="navigation">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-sm-2 col-xs-2">
+                        <div id="gtco-logo"><a href="index.html"><img src="images/computer.jpg" width="100" height="50" alt=""></a></div>
+                    </div>
+                    <div class="col-xs-20 text-right menu-1">
+                        <ul>
+                            <li class="active"><a href="index.html"><b>HOME</b></a></li>
+                            <li class="active"><a href="study.html"><b>STUDY</b></a></li>
+                            <li class="active"><a href="video.html"><b>VIDEO</b></a> </li>
+                            <li class="active"><a href="quiz.html"><b>QUIZ</b></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <header id="gtco-header" class="gtco-cover gtco-cover-xs gtco-inner" role="banner">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-0 text-left">
+                        <div class="display-t">
+                            <div class="display-tc">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h1 class="no-margin"><b>Quiz</b></h1>
+                                        <p></p>
+                                        <p>After you learn computer science, you can check your study with a quiz.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <style>
+            #frame001 {
+                background-color: white;
+                border-radius: 10px;
+                padding: 10px;
+                margin: 5px;
+            }
+
+            .buttons001 {
+                background-color: lightblue;
+                color: white;
+                padding: 5px;
+                margin: 10px;
+                border-radius: 10px;
+                width: 200px;
+            }
+
+            .buttons002 {
+                background-color: lightpink;
+                color: black;
+                padding: 5px;
+                margin: 10px;
+                border-radius: 10px;
+                width: 100px;
+            }
+
+            #text001 {
+                text-align: center;
+            }
+
+            #text002 {
+                text-align: left;
+            }
+
+            #green001 {
+                color: green;
+            }
+
+            #red001 {
+                color: red;
+            }
+        </style>
+
+
+        <div class="gtco-section">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-3 gtco-heading text-center">
+                        <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:550px; height:400px">
+                            <canvas id="canvas" width="550" height="400" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+                            <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:550px; height:400px; position: absolute; left: 0px; top: 0px; display: block;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+                        <div id="frame001">
+                            <div id="text001">
+                                <h2><strong>ㅡㅡㅡㅡㅡㅡ Quiz ㅡㅡㅡㅡㅡㅡ</strong></h2>
+                                <font size="5px">Question: <text id="number001">0</text></font><br />
+                                <font size="5px">Score: <text id="score001">0</text></font>
+                                <hr />
+                                <div id="message001">Click Begin to start</div><br />
+                            </div>
+                            <div id="text002">
+                                <div id="question001"></div>
+                                <div id="option001"></div>
+                                <div id="option002"></div>
+                                <div id="answer001"></div>
+                                <div id="text001">
+                                    <div id="disappear001">
+                                        <button class="buttons001" onclick="begin001()">
+                                            Begin
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="next001"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer id="gtco-footer" class="gtco-section" role="contentinfo">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-4 gtco-widget gtco-footer-paragraph">
+                        <h3>Made by</h3>
+                        <p>2016315446
+                            Eum Seo Young</p>
+                    </div>
+                    <div class="col-md-6 col-md-offset-2 gtco-footer-subscribe">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                                <input type="email" class="form-control" id="" placeholder="Email">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="gtco-copyright">
+                <div class="gtco-container">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                        </div>
+                        <div class="col-md-6 text-right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/magnific-popup-options.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

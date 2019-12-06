@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,700" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/modernizr-2.6.2.min.js"></script>
+
+
+
+    <!-- temperature code start!!! ★shape tween★ -->
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="temperature.js"></script>
+    <script>
+        var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+        function init() {
+            canvas = document.getElementById("canvas");
+            anim_container = document.getElementById("animation_container");
+            dom_overlay_container = document.getElementById("dom_overlay_container");
+            var comp = AdobeAn.getComposition("A2CD38DA7D79974B98810C77674349F9");
+            var lib = comp.getLibrary();
+            var loader = new createjs.LoadQueue(false);
+            loader.addEventListener("fileload", function(evt) {
+                handleFileLoad(evt, comp)
+            });
+            loader.addEventListener("complete", function(evt) {
+                handleComplete(evt, comp)
+            });
+            var lib = comp.getLibrary();
+            loader.loadManifest(lib.properties.manifest);
+        }
+
+        function handleFileLoad(evt, comp) {
+            var images = comp.getImages();
+            if (evt && (evt.item.type == "image")) {
+                images[evt.item.id] = evt.result;}}
+
+        function handleComplete(evt, comp) {
+            var lib = comp.getLibrary();
+            var ss = comp.getSpriteSheet();
+            var queue = evt.target;
+            var ssMetadata = lib.ssMetadata;
+            for (i = 0; i < ssMetadata.length; i++) {
+                ss[ssMetadata[i].name] = new createjs.SpriteSheet({
+                    "images": [queue.getResult(ssMetadata[i].name)],
+                    "frames": ssMetadata[i].frames })}
+            exportRoot = new lib.무제4();
+            stage = new lib.Stage(canvas);
+            //Registers the "tick" event listener.
+            fnStartAnimation = function() {
+                stage.addChild(exportRoot);
+                createjs.Ticker.setFPS(lib.properties.fps);
+                createjs.Ticker.addEventListener("tick", stage); }
+            //Code to support hidpi screens and responsive scaling.
+            AdobeAn.makeResponsive(false, 'both', false, 1, [canvas, anim_container, dom_overlay_container]);
+            AdobeAn.compositionLoaded(lib.properties.id);
+            fnStartAnimation();}
+    </script>
+    <!-- temperature code end!!! -->
+
+</head>
+
+<body onload="init();" style="margin:0px;">
+    <div class="gtco-loader"></div>
+    <div id="page">
+        <nav class="gtco-nav" role="navigation">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-sm-2 col-xs-2">
+                        <div id="gtco-logo"><a href="index.html"><img src="images/computer.jpg" width="100" height="50" alt=""></a></div>
+                    </div>
+                    <div class="col-xs-20 text-right menu-1">
+                        <ul>
+                            <li class="active"><a href="index.html"><b>HOME</b></a></li>
+                            <li class="active"><a href="study.html"><b>STUDY</b></a></li>
+                            <li class="active"><a href="video.html"><b>VIDEO</b></a> </li>
+                            <li class="active"><a href="quiz.html"><b>QUIZ</b></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <header id="gtco-header" class="gtco-cover gtco-cover-xs gtco-inner" role="banner">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-0 text-left">
+                        <div class="display-t">
+                            <div class="display-tc">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h1 class="no-margin"><b>Concept Learning</b></h1>
+                                        <p></p>
+                                        <p>You can learn computer science through this page by yourself.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="gtco-services gtco-section">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+                        <h2><b>Chap 2. Data and Information</b></h2>
+                        <p></p>
+                        <p></p>
+                        <p>
+                            <font size="5px">[ Lesson Goal ]</font>
+                        </p>
+                        <p>■&emsp;Explain the difference between analog and digital&emsp;&emsp;&emsp;</p>
+                        <p>■&emsp;Turn analog information into digital information in real life</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <ul>
+                        <font size="5px"><b>ANALOG</b></font>
+                        <li>An analog signal is any continuous signal for which the time-varying feature (variable) of the signal is a representation of some other time varying quantity, i.e., analogous to another time varying signal.</li>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <img src="images/analogex.jpg" alt="">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:550px; height:400px">
+                        <canvas id="canvas" width="550" height="400" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+                        <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:550px; height:400px; position: absolute; left: 0px; top: 0px; display: block;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <ul>
+                        <hr />
+                        <font size="5px"><b>DIGITAL</b></font>
+                        <li>A digital signal is a signal that is being used to represent data as a sequence of discrete values; at any given time it can only take on one of a finite number of values. This contrasts with an analog signal, which represents continuous values; at any given time it represents a real number within a continuous range of values</li>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <img src="images/digitalex.jpg" alt="">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <footer id="gtco-footer" class="gtco-section" role="contentinfo">
+            <div class="gtco-container">
+                <div class="row">
+                    <div class="col-md-4 gtco-widget gtco-footer-paragraph">
+                        <h3>Made by</h3>
+                        <p>2016315446
+                            Eum Seo Young</p>
+                    </div>
+                    <div class="col-md-6 col-md-offset-2 gtco-footer-subscribe">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                                <input type="email" class="form-control" id="" placeholder="Email">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="gtco-copyright">
+                <div class="gtco-container">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                        </div>
+                        <div class="col-md-6 text-right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <!-- countTo -->
+    <script src="js/jquery.countTo.js"></script>
+    <!-- Carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- Magnific Popup -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/magnific-popup-options.js"></script>
+
+
+
+    <!-- Main -->
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
